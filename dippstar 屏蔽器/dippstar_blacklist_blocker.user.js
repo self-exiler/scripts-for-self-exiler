@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         dippstar 黑名单屏蔽器
 // @namespace    http://tampermonkey.net/
-// @version      1.3
-// @description  从黑名单页面提取用户并在论坛帖子列表中屏蔽这些用户（支持一键添加黑名单按钮）
+// @version      1.4
+// @description  从黑名单页面提取用户并在论坛帖子列表中屏蔽这些用户（支持PC版和手机版一键添加黑名单按钮）
 // @author       You
 // @match        https://bbs.dippstar.com/*
+// @match        https://bbs.dippstar.com/forum.php?mod=forumdisplay*mobile=2*
+// @match        https://bbs.dippstar.com/forum.php?mod=viewthread*mobile=2*
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_xmlhttpRequest
@@ -173,52 +175,89 @@
         const userIds = users.map(u => u.uid);
         let blockedCount = 0;
 
-        // 屏蔽帖子列表中的作者
-        const forumThreads = document.querySelectorAll('tbody[id^="normalthread_"]');
-        forumThreads.forEach(thread => {
-            const authorLinks = thread.querySelectorAll('cite a[href*="space-uid-"]');
-            authorLinks.forEach(authorLink => {
-                const href = authorLink.getAttribute('href');
-                const uid = extractUserId(href);
-                if (uid && userIds.includes(uid) && thread.style.display !== 'none') {
-                    thread.style.display = 'none';
-                    thread.setAttribute('data-blocked-by', 'dippstar_blacklist');
-                    blockedCount++;
-                    console.log('[dippstar 屏蔽器] 已屏蔽帖子:', authorLink.textContent);
-                }
-            });
-        });
+        // 判断是否为手机版
+        const isMobile = window.location.href.includes('mobile=2');
 
-        // 屏蔽帖子详情页中的回复
-        const posts = document.querySelectorAll('div[id^="post_"]');
-        posts.forEach(post => {
-            const authorLinks = post.querySelectorAll('.authi a[href*="space-uid-"], cite a[href*="space-uid-"]');
-            authorLinks.forEach(authorLink => {
-                const href = authorLink.getAttribute('href');
-                const uid = extractUserId(href);
-                if (uid && userIds.includes(uid) && post.style.display !== 'none') {
-                    post.style.display = 'none';
-                    post.setAttribute('data-blocked-by', 'dippstar_blacklist');
-                    blockedCount++;
-                    console.log('[dippstar 屏蔽器] 已屏蔽回复:', authorLink.textContent);
-                }
+        if (isMobile) {
+            // 手机版论坛列表 - li.list 中包含用户信息的结构
+            const forumThreads = document.querySelectorAll('li.list');
+            forumThreads.forEach(thread => {
+                const authorLinks = thread.querySelectorAll('a.mmc');
+                authorLinks.forEach(authorLink => {
+                    const href = authorLink.getAttribute('href');
+                    const uid = extractUserId(href);
+                    if (uid && userIds.includes(uid) && thread.style.display !== 'none') {
+                        thread.style.display = 'none';
+                        thread.setAttribute('data-blocked-by', 'dippstar_blacklist');
+                        blockedCount++;
+                        console.log('[dippstar 屏蔽器] 已屏蔽帖子:', authorLink.textContent);
+                    }
+                });
             });
-        });
 
-        // 屏蔽动态/家园中的内容
-        const feedItems = document.querySelectorAll('ul#feed li, .feed li');
-        feedItems.forEach(item => {
-            const authorLinks = item.querySelectorAll('a[href*="space-uid-"]');
-            authorLinks.forEach(authorLink => {
-                const href = authorLink.getAttribute('href');
-                const uid = extractUserId(href);
-                if (uid && userIds.includes(uid) && item.style.display !== 'none') {
-                    item.style.display = 'none';
-                    item.setAttribute('data-blocked-by', 'dippstar_blacklist');
-                    blockedCount++;
-                }
+            // 手机版帖子详情页 - div.plc 是帖子容器
+            const posts = document.querySelectorAll('div.plc');
+            posts.forEach(post => {
+                const authorLinks = post.querySelectorAll('ul.authi li.mtit span.z a');
+                authorLinks.forEach(authorLink => {
+                    const href = authorLink.getAttribute('href');
+                    const uid = extractUserId(href);
+                    if (uid && userIds.includes(uid) && post.style.display !== 'none') {
+                        post.style.display = 'none';
+                        post.setAttribute('data-blocked-by', 'dippstar_blacklist');
+                        blockedCount++;
+                        console.log('[dippstar 屏蔽器] 已屏蔽回复:', authorLink.textContent);
+                    }
+                });
             });
-        });
+        } else {
+            // PC版论坛列表
+            const forumThreads = document.querySelectorAll('tbody[id^="normalthread_"]');
+            forumThreads.forEach(thread => {
+                const authorLinks = thread.querySelectorAll('cite a[href*="space-uid-"]');
+                authorLinks.forEach(authorLink => {
+                    const href = authorLink.getAttribute('href');
+                    const uid = extractUserId(href);
+                    if (uid && userIds.includes(uid) && thread.style.display !== 'none') {
+                        thread.style.display = 'none';
+                        thread.setAttribute('data-blocked-by', 'dippstar_blacklist');
+                        blockedCount++;
+                        console.log('[dippstar 屏蔽器] 已屏蔽帖子:', authorLink.textContent);
+                    }
+                });
+            });
+
+            // PC版帖子详情页
+            const posts = document.querySelectorAll('div[id^="post_"]');
+            posts.forEach(post => {
+                const authorLinks = post.querySelectorAll('.authi a[href*="space-uid-"], cite a[href*="space-uid-"]');
+                authorLinks.forEach(authorLink => {
+                    const href = authorLink.getAttribute('href');
+                    const uid = extractUserId(href);
+                    if (uid && userIds.includes(uid) && post.style.display !== 'none') {
+                        post.style.display = 'none';
+                        post.setAttribute('data-blocked-by', 'dippstar_blacklist');
+                        blockedCount++;
+                        console.log('[dippstar 屏蔽器] 已屏蔽回复:', authorLink.textContent);
+                    }
+                });
+            });
+
+            // PC版动态/家园
+            const feedItems = document.querySelectorAll('ul#feed li, .feed li');
+            feedItems.forEach(item => {
+                const authorLinks = item.querySelectorAll('a[href*="space-uid-"]');
+                authorLinks.forEach(authorLink => {
+                    const href = authorLink.getAttribute('href');
+                    const uid = extractUserId(href);
+                    if (uid && userIds.includes(uid) && item.style.display !== 'none') {
+                        item.style.display = 'none';
+                        item.setAttribute('data-blocked-by', 'dippstar_blacklist');
+                        blockedCount++;
+                    }
+                });
+            });
+        }
 
         if (blockedCount > 0) {
             console.log(`[dippstar 屏蔽器] 本次共屏蔽 ${blockedCount} 条内容`);
@@ -228,24 +267,42 @@
 
     // 创建一键屏蔽按钮
     function createBlockButton(uid, username) {
+        const isMobile = window.location.href.includes('mobile=2');
+
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'dippstar-block-btn';
         btn.innerHTML = '🚫 屏蔽';
         btn.title = `将 ${username} 添加到黑名单`;
-        btn.style.cssText = `
-            padding: 4px 8px;
-            font-size: 12px;
-            color: #fff;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 6px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
-            white-space: nowrap;
-        `;
+
+        if (isMobile) {
+            btn.style.cssText = `
+                padding: 2px 6px;
+                font-size: 11px;
+                color: #fff;
+                background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                margin-left: 6px;
+                vertical-align: middle;
+                line-height: 1;
+            `;
+        } else {
+            btn.style.cssText = `
+                padding: 4px 8px;
+                font-size: 12px;
+                color: #fff;
+                background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 6px;
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+                white-space: nowrap;
+            `;
+        }
 
         btn.onmouseover = () => {
             btn.style.transform = 'scale(1.05)';
@@ -261,10 +318,9 @@
             e.preventDefault();
             e.stopPropagation();
 
-            // 检查是否已在黑名单中
             const users = await getBlacklistUsers();
             const userIds = users.map(u => u.uid);
-            
+
             if (userIds.includes(uid)) {
                 GM_notification({
                     text: `${username} 已在黑名单中`,
@@ -274,34 +330,31 @@
                 return;
             }
 
-            // 禁用按钮防止重复点击
             btn.disabled = true;
             btn.textContent = '⏳ 添加中...';
             btn.style.opacity = '0.7';
 
             try {
                 const result = await addToBlacklist(username);
-                
+
                 if (result.success) {
                     btn.textContent = '✅ 已屏蔽';
                     btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                    
+
                     GM_notification({
                         text: `已将 ${username} 添加到黑名单`,
                         title: 'dippstar 屏蔽器',
                         timeout: 3000
                     });
 
-                    // 刷新缓存的黑名单
                     GM_setValue(BLACKLIST_KEY, null);
-                    
-                    // 立即屏蔽该用户的内容
+
                     setTimeout(() => doBlock(), 500);
                 } else {
                     btn.textContent = '🚫 屏蔽';
                     btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                     btn.disabled = false;
-                    
+
                     GM_notification({
                         text: `添加失败：${result.message}`,
                         title: 'dippstar 屏蔽器',
@@ -320,14 +373,17 @@
 
     // 在头像旁添加屏蔽按钮（仅帖子详情页）
     function addBlockButtons() {
-        // 帖子详情页 - 头像区域（.authi 或 .avatar_area）
+        const isMobile = window.location.href.includes('mobile=2');
+
+        if (isMobile) {
+            return;
+        }
+
         const postAvatars = document.querySelectorAll('div[id^="post_"] .authi, div[id^="post_"] .avatar_area');
         postAvatars.forEach(container => {
-            // 查找用户链接
             const userLink = container.querySelector('a[href*="space-uid-"]');
             if (!userLink) return;
 
-            // 检查是否已添加按钮
             if (container.querySelector('.dippstar-block-btn')) return;
 
             const uid = extractUserId(userLink.getAttribute('href'));
