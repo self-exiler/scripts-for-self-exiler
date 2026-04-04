@@ -1,13 +1,6 @@
 # 油猴脚本合集
 
-本仓库包含两个 Tampermonkey/油猴 用户脚本，分别用于华住官网 Cookie 提取与 Dippstar 论坛黑名单屏蔽。
-
-## 目录结构
-
-- `华住官网抓取cookies/`
-  - `hworld-cookie-copy.user.js`：华住官网 Cookie 提取器。
-- `dippstar 屏蔽器/`
-  - `dippstar_blacklist_blocker.user.js`：Dippstar 论坛黑名单屏蔽器。
+本仓库包含为自用篡改猴脚本工具仓库。
 
 ## 脚本说明
 
@@ -21,6 +14,8 @@
   - 复制 Cookie 到剪贴板
   - 使用通知提示复制结果
 
+[![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://github.com/self-exiler/tampermonkey-scripts-self-exiler/raw/refs/heads/main/%E5%8D%8E%E4%BD%8F%E5%AE%98%E7%BD%91%E6%8A%93%E5%8F%96cookies/hworld-cookie-copy.user.js)
+
 ### 2. Dippstar 黑名单屏蔽器
 
 - 文件：`dippstar 屏蔽器/dippstar_blacklist_blocker.user.js`
@@ -33,11 +28,7 @@
   - 在帖子详情页为每个用户添加“一键屏蔽”按钮
   - 提供菜单命令：刷新黑名单、查看黑名单
 
-<a href="javascript:(function(d,s){s=d.createElement('script');s.src='https://raw.githubusercontent.com/self-exiler/tampermonkey-scripts-self-exiler/main/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js';d.body.appendChild(s);})();">
-  <button style="background-color:#4CAF50;border:none;color:white;padding:12px 24px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:4px 2px;cursor:pointer;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.2);transition:all 0.2s ease;">
-    🚀 安装 dippstar 黑名单屏蔽器
-  </button>
-</a>
+[![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/tampermonkey-scripts-self-exiler/main/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js)
 
 ## 注意事项
 
