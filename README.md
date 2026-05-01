@@ -1,6 +1,6 @@
-# 油猴脚本合集
+# 脚本合集
 
-本仓库包含为自用篡改猴脚本工具仓库。
+本仓库包含为自用篡改猴和其他脚本工具仓库。
 
 ## 脚本说明
 
@@ -29,6 +29,10 @@
   - 提供菜单命令：刷新黑名单、查看黑名单
 
 [![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/tampermonkey-scripts-self-exiler/main/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js)
+
+### B站Yuki_114514资源解压工具
+
+这个作者给的MMD视频资源，保存规律为：lz4不用改格式直接解压，解压出来的文件要结尾加.xz，也是压缩包，xz解压出来的加.mp4。写了一个powershell脚本，用于一键解压，需要开放ps1脚本权限，以及安装了bandzip。
 
 ## 注意事项
 
