@@ -30,9 +30,11 @@
 
 [![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/tampermonkey-scripts-self-exiler/main/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js)
 
-### B站Yuki_114514资源解压工具
+### 3.B站Yuki_114514资源解压工具
 
-这个作者给的MMD视频资源，保存规律为：lz4不用改格式直接解压，解压出来的文件要结尾加.xz，也是压缩包，xz解压出来的加.mp4。写了一个powershell脚本，用于一键解压，需要开放ps1脚本权限，以及安装了bandzip。
+* 文件：B站Yuki_114514资源解压工具.ps1
+* 作用：这个作者（Yuki_114514）给的MMD视频资源（见每个评论区网盘），保存规律为：lz4不用改格式直接解压，解压出来的文件要结尾加.xz，也是压缩包，xz解压出来的加.mp4。写了一个powershell脚本一键解压。
+* 主要功能：通过内联.net framework的winform，实现了一个GUI，用于一键解压，需要开放ps1脚本权限，以及安装了bandzip。
 
 ## 注意事项
 
