@@ -36,7 +36,7 @@
 
 ## AI 技能
 
-- `skill/swashbucklerdiary-entry/` — 将用户输入的日常记录写入侠客日记 (SwashbucklerDiary) SQLite 数据库
+- `skill/swashbucklerdiary-entry/` — 将用户输入的日常记录写入[侠客日记 (SwashbucklerDiary)](https://github.com/Yu-Core/SwashbucklerDiary) SQLite 数据库
 
 ## 注意事项
 
