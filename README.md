@@ -1,57 +1,46 @@
-# 脚本合集
+# 实用工具集
 
-本仓库包含为自用篡改猴和其他脚本工具仓库。
+自用脚本与工具合集，按用途分目录存放。
 
-## 脚本说明
+---
 
-### 1. 华住集团官网 Cookie 提取器
+## 篡改猴脚本
 
-- 文件：`华住官网抓取cookies/hworld-cookie-copy.user.js`
-- 作用：在 `hworld.com` 站点页面上注入一个“复制 Cookie”按钮，点击后将当前页面 Cookie 复制到剪贴板。
-- 适用范围：`https://www.hworld.com/*`、`https://*.hworld.com/*`
-- 主要功能：
-  - 提取当前页面 `document.cookie`
-  - 复制 Cookie 到剪贴板
-  - 使用通知提示复制结果
+使用前请确认已登录目标站点
 
-[![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://github.com/self-exiler/tampermonkey-scripts-self-exiler/raw/refs/heads/main/%E5%8D%8E%E4%BD%8F%E5%AE%98%E7%BD%91%E6%8A%93%E5%8F%96cookies/hworld-cookie-copy.user.js)
+| 脚本                   | 文件                                                   | 说明                                                       | 安装                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------- | ------------------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 华住官网 Cookie 提取器 | `华住官网抓取cookies/hworld-cookie-copy.user.js`     | 在 hworld.com 注入"复制 Cookie"按钮，一键复制到剪贴板      | [![Install](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/scripts-for-self-exiler/main/%E7%AF%A1%E6%94%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/%E5%8D%8E%E4%BD%8F%E5%AE%98%E7%BD%91%E6%8A%93%E5%8F%96cookies/hworld-cookie-copy.user.js)                  |
+| 知乎清空关注问题       | `知乎清空关注问题/zhihu-unfollow-questions.user.js`  | 批量取消关注知乎上的所有关注问题，支持进度显示和暂停       | [![Install](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/scripts-for-self-exiler/main/%E7%AF%A1%E6%94%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/%E7%9F%A5%E4%B9%8E%E6%B8%85%E7%A9%BA%E5%85%B3%E6%B3%A8%E9%97%AE%E9%A2%98/zhihu-unfollow-questions.user.js) |
+| Dippstar 黑名单屏蔽器  | `dippstar 屏蔽器/dippstar_blacklist_blocker.user.js` | 从黑名单页面获取列表，自动屏蔽 Dippstar 论坛指定用户的内容 | [![Install](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/scripts-for-self-exiler/main/%E7%AF%A1%E6%94%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js)                                 |
 
-### 2. Dippstar 黑名单屏蔽器
+## 青龙面板脚本
 
-- 文件：`dippstar 屏蔽器/dippstar_blacklist_blocker.user.js`
-- 作用：自动从 Dippstar 论坛黑名单页面获取用户列表，并在论坛帖子列表／回帖中屏蔽这些用户的内容。
-- 适用范围：`https://bbs.dippstar.com/*`
-- 主要功能：
-  - 从黑名单页面提取 UID 和用户名
-  - 缓存黑名单，减少请求频率
-  - 隐藏帖子列表、回帖、动态中的黑名单用户内容
-  - 在帖子详情页为每个用户添加“一键屏蔽”按钮
-  - 提供菜单命令：刷新黑名单、查看黑名单
+青龙脚本需在面板中配置 cron 触发和 Cookie 环境变量
 
-[![Install on Tampermonkey](https://img.shields.io/badge/Install-Tampermonkey-339933?logo=tampermonkey&style=for-the-badge)](https://raw.githubusercontent.com/self-exiler/tampermonkey-scripts-self-exiler/main/dippstar%20%E5%B1%8F%E8%94%BD%E5%99%A8/dippstar_blacklist_blocker.user.js)
+| 脚本         | 文件                      | 说明                                 | 安装                                                                                                                                                                                                                                                                       |
+| ------------ | ------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ikuuu 签到   | `ikuuu_checkin.py`      | ikuuu 面板自动签到，需要抓取 Cookie  | [![Raw](https://img.shields.io/badge/Raw-%E2%AC%87%EF%B8%8F%20%E6%9F%A5%E7%9C%8B-222?style=for-the-badge&logo=python)](https://raw.githubusercontent.com/self-exiler/scripts-for-self-exiler/main/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E8%84%9A%E6%9C%AC/ikuuu_checkin.py)      |
+| 南+ 论坛签到 | `south_plus_checkin.py` | 南+论坛每日自动签到，需要抓取 Cookie | [![Raw](https://img.shields.io/badge/Raw-%E2%AC%87%EF%B8%8F%20%E6%9F%A5%E7%9C%8B-222?style=for-the-badge&logo=python)](https://raw.githubusercontent.com/self-exiler/scripts-for-self-exiler/main/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E8%84%9A%E6%9C%AC/south_plus_checkin.py) |
 
-### 3.B站Yuki_114514资源解压工具
+## Python脚本
 
-* 文件：B站Yuki_114514资源解压工具\B站Yuki_114514资源解压工具.ps1
-* 作用：这个作者（Yuki_114514）给的MMD视频资源（见每个评论区网盘），保存规律为：lz4不用改格式直接解压，解压出来的文件要结尾加.xz，也是压缩包，xz解压出来的加.mp4。写了一个powershell脚本一键解压。
-* 主要功能：通过内联.net framework的winform，实现了一个GUI，用于一键解压，需要开放ps1脚本权限，以及安装了bandzip。
+### B站 Yuki_114514 资源解压工具
 
-### 4.南＋签到脚本
+- 文件：`B站Yuki_114514资源解压工具/decompress.py`
+- 作用：一键解压 B 站 UP 主 Yuki_114514 发布的 MMD 视频资源
+- 解压链路：`.lz4` → `.xz` → `.mp4`
+- 基于 PySide6 构建的图形界面，支持拖拽文件、并行解压、进度显示
+- 依赖：Python 3.8+、PySide6、lz4
+- 解压工具需提前安装 Python 依赖：`pip install PySide6 lz4`
 
-* 文件：south_plus_checkin.py
-* 作用：用于南+论坛签到，适用于青龙面板，需要抓cookie。
+## AI 技能
 
-### 5.ikuuu签到脚本
-
-* 文件：ikuuu_checkin.py
-* 作用：用于ikuuu签到，适用于青龙面板，需要抓cookie。
+- `skill/swashbucklerdiary-entry/` — 将用户输入的日常记录写入侠客日记 (SwashbucklerDiary) SQLite 数据库
 
 ## 注意事项
 
-- 使用脚本前请确认已登录目标站点。
-- Dippstar 屏蔽器依赖黑名单页面抓取数据，若页面结构变更可能需要更新脚本。
-- 脚本仅供个人使用，不保证对所有页面场景都完全兼容。
-
-## 贡献
-
-如需优化脚本功能或添加新脚本，可直接修改对应文件并提交 PR。
+- 使用前请确认已登录目标站点
+- 青龙脚本需在面板中配置 cron 触发和 Cookie 环境变量
+- 解压工具需提前安装 Python 依赖：`pip install PySide6 lz4`
+- 脚本仅供个人学习使用
