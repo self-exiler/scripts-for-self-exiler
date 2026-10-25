@@ -1,0 +1,20 @@
+[package]
+name = "yuki-decompressor"
+version = "3.0.0"
+edition = "2021"
+description = "B站Yuki_114514资源解压工具 (Rust + WinUI 3)：lz4 -> xz -> mp4"
+
+[dependencies]
+lz4_flex = { version = "0.11", features = ["frame"] }
+lzma-rust2 = { version = "0.23", features = ["xz"] }
+windows-core = "0.100"
+windows-reactor = "0.100"
+# crates.io 镜像（rsproxy）尚未收录 windows-pickers 0.100，且其 reactor 集成 API
+# 属未发布版本，故 vendored 其 master 源码并适配 windows-core/reactor 0.100.0
+# （改用 show_*_for_hwnd 裸 API，详见 README）
+windows-pickers = { path = "vendor/windows-pickers", default-features = false }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
